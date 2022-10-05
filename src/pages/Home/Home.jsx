@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Cart, DefaultButton, List } from "../../components";
+import { Cart, DefaultButton, Header, List } from "../../components";
 import { cartActions } from "../../store/cart";
 import { productsActions } from "../../store/products";
 import "./Home.css";
@@ -63,8 +63,13 @@ const Home = () => {
         dispatch(cartActions.remove(item));
     }, [dispatch]);
 
+    const handleHeaderCart = useCallback(() => {
+        setCartOpen(true);
+    }, []);
+
     return (
         <div>
+            <Header onCartClick={handleHeaderCart} />
             <Cart
                 open={cartOpen}
                 onClose={handleCartClose}

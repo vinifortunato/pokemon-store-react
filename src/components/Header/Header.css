@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 15px 10px;
+    background-color: #0B6EFD;
+}
+
+.header-menu {
+    flex: 1;
+}
+
+.header-title {
+    flex: 4;
+    text-align: center;
+}
+
+.header-cart { 
+    flex: 1;
+}
+
