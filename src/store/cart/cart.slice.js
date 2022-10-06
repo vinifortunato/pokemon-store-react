@@ -4,6 +4,10 @@ const cart = createSlice({
     name: 'cart',
     initialState: [],
     reducers: {
+        init: (state, action) => {
+            const data = action.payload;
+            return data;
+        },
         add: (state, action) => {
             const newItem = action.payload;
             return [...state, newItem];

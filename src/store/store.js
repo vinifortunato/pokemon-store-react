@@ -13,7 +13,8 @@ const store = configureStore({
 
 store.subscribe(() => {
     const state = store.getState();
-    console.log('subscribe', state);
+    const data = JSON.stringify(state);
+    localStorage.setItem('pokemon-store', data);
 });
 
 export default store;

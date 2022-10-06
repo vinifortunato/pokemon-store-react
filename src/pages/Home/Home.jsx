@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Cart, DefaultButton, Header, List } from "../../components";
 import { cartActions } from "../../store/cart";
 import { productsActions } from "../../store/products";
+import { userActions } from "../../store/user";
 import "./Home.css";
 
 const Home = () => {
@@ -14,6 +15,25 @@ const Home = () => {
 
     // Inicialização
     useEffect(() => {
+        const localData = localStorage.getItem('pokemon-store');
+        if (localData) {
+            const parsed = JSON.parse(localData);
+            const { cart, products, user } = parsed; 
+            
+            dispatch(cartActions.init(cart));
+
+            dispatch(productsActions.init({
+                next: products.next,
+                previous: products.previous,
+                list: products.list
+            }));
+
+            if (user) {
+                dispatch(userActions.init(user));
+            }
+            return;
+        }
+
         fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
             .then((response) => {
                 return response.json();
@@ -48,7 +68,7 @@ const Home = () => {
             .catch(() => {
                 console.error('Error');
             });
-    }, [products.next]);
+    }, [dispatch, products.next]);
 
     const handleAddToCart = useCallback((item) => {
         dispatch(cartActions.add(item));
